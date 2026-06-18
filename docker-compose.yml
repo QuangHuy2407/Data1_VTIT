@@ -99,15 +99,6 @@ services:
     command: >
       bash -c "
         pip install clickhouse-connect --quiet &&
-        superset db upgrade &&
-        superset fab create-admin
-          --username admin
-          --firstname Admin
-          --lastname User
-          --email admin@superset.com
-          --password admin
-          2>/dev/null || true &&
-        superset init &&
         /usr/bin/run-server.sh
       "
     healthcheck:
