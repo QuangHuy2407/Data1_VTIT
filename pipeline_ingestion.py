@@ -77,7 +77,8 @@ def generate_mock_data(num_rows: int = 100) -> pl.DataFrame:
 # CHƯƠNG TRÌNH CHÍNH (MAIN EXECUTION)
 if __name__ == "__main__":
     print("=== BƯỚC 1: ĐANG SINH DỮ LIỆU GIẢ LẬP VỚI POLARS ===")
-    df_original = generate_mock_data(num_rows=5)
+    # Đã sửa thành 50 dòng ở đây
+    df_original = generate_mock_data(num_rows=50) 
     
     print("\n--- BẢNG DỮ LIỆU GỐC BAN ĐẦU ---")
     print(df_original)
@@ -90,7 +91,6 @@ if __name__ == "__main__":
     cipher_tool = AES256Cipher(key=STATIC_KEY)
     
     print("\n=== BƯỚC 3: TIẾN HÀNH MÃ HÓA TRỰC TIẾP TRÊN POLARS DATAFRAME ===")
-    # Mã hóa TOÀN BỘ 4 trường int có trong DataFrame
     df_encrypted = df_original.with_columns([
         pl.col("customer_id").map_elements(cipher_tool.encrypt, return_dtype=pl.String).alias("customer_id"),
         pl.col("age").map_elements(cipher_tool.encrypt, return_dtype=pl.String).alias("age"),
@@ -130,6 +130,5 @@ if __name__ == "__main__":
     df_encrypted.write_parquet(parquet_filename)
     
     print(f"✅ Đã xuất dữ liệu thành công ra file: {parquet_filename}")
-    
     current_dir = os.path.dirname(os.path.abspath(__file__))
     print(f"📂 Vị trí lưu file: {os.path.join(current_dir, parquet_filename)}")
