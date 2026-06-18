@@ -77,7 +77,7 @@ def generate_mock_data(num_rows: int = 100) -> pl.DataFrame:
 # CHƯƠNG TRÌNH CHÍNH (MAIN EXECUTION)
 if __name__ == "__main__":
     print("=== BƯỚC 1: ĐANG SINH DỮ LIỆU GIẢ LẬP VỚI POLARS ===")
-    # Đã sửa thành 50 dòng ở đây
+
     df_original = generate_mock_data(num_rows=50) 
     
     print("\n--- BẢNG DỮ LIỆU GỐC BAN ĐẦU ---")
