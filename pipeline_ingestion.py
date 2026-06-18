@@ -112,7 +112,6 @@ if __name__ == "__main__":
     print(f"Giá trị tuổi sau khi giải mã ngược lại : {decrypted_age} (Dữ liệu gốc ban đầu: {df_original['age'][0]})")
 
     print("\n=== BƯỚC 5: TEST TOÀN DIỆN - GIẢI MÃ NGƯỢC TOÀN BỘ BẢNG ===")
-    # Giải mã toàn bộ 4 trường để kiểm tra
     df_decrypted = df_encrypted.with_columns([
         pl.col("customer_id").map_elements(cipher_tool.decrypt, return_dtype=pl.Int64).alias("customer_id"),
         pl.col("age").map_elements(cipher_tool.decrypt, return_dtype=pl.Int64).alias("age"),
@@ -125,3 +124,12 @@ if __name__ == "__main__":
     
     print("\n--- CẤU TRÚC SAU KHI KHÔI PHỤC (Dạng dọc) ---")
     print(df_decrypted.glimpse())
+
+    print("\n=== BƯỚC 6: XUẤT FILE PARQUET ĐỂ LƯU TRỮ VÀ BÀN GIAO ===")
+    parquet_filename = "encrypted_customer_data.parquet"
+    df_encrypted.write_parquet(parquet_filename)
+    
+    print(f"✅ Đã xuất dữ liệu thành công ra file: {parquet_filename}")
+    
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    print(f"📂 Vị trí lưu file: {os.path.join(current_dir, parquet_filename)}")
