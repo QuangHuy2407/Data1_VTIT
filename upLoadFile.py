@@ -1,11 +1,8 @@
 import boto3
 from botocore.exceptions import NoCredentialsError
+from minio_credentials import ACCESS_KEY, MINIO_ENDPOINT, SECRET_KEY
 
 # 1. Cấu hình thông tin kết nối MinIO
-MINIO_ENDPOINT = "http://localhost:9000"  
-ACCESS_KEY = "admin"
-SECRET_KEY = "password123"
-
 BUCKET_NAME = "data-pipeline"
 LOCAL_FILE_PATH = "encrypted_customer_data.parquet"         
 MINIO_OBJECT_NAME = "datasets/data.parquet" # Đường dẫn lưu trên MinIO
