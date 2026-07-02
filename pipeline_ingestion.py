@@ -44,7 +44,7 @@ class AES256Cipher:
 # MODULE 2: MOCK DỮ LIỆU GIẢ LẬP (Sử dụng Faker & Polars)
 def generate_mock_data(num_rows: int = 100) -> pl.DataFrame:
     fake = Faker('vi_VN')
-    Faker.seed(42)
+    #Faker.seed(42) có thể được sử dụng để tạo dữ liệu giả lập nhất quán cho các lần chạy khác nhau, nhưng ở đây chúng ta muốn dữ liệu thay đổi mỗi lần chạy.
     
     raw_data = []
     for _ in range(num_rows):
@@ -78,7 +78,7 @@ def generate_mock_data(num_rows: int = 100) -> pl.DataFrame:
 if __name__ == "__main__":
     print("=== BƯỚC 1: ĐANG SINH DỮ LIỆU GIẢ LẬP VỚI POLARS ===")
     # Đã sửa thành 50 dòng ở đây
-    df_original = generate_mock_data(num_rows=50) 
+    df_original = generate_mock_data(num_rows=1000000) 
     
     print("\n--- BẢNG DỮ LIỆU GỐC BAN ĐẦU ---")
     print(df_original)

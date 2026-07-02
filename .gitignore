@@ -1,0 +1,3 @@
+*.parquet
+encrypted_customer_data.parquet
+encrypted_customer_data.parquet
