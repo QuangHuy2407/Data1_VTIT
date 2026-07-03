@@ -2,3 +2,5 @@
 analytics_database/.env 
 ingestion/sample_data_50_rows.csv
 ingestion/.env
+*.zip
+
