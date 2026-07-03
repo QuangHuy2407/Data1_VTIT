@@ -97,26 +97,7 @@ services:
     depends_on:
       - clickhouse
       - minio
-    # Thứ tự lệnh khớp với Bước 3 trong SETUP.md:
-    #   3.4 → pip install clickhouse-connect
-    #   3.1 → superset db upgrade
-    #   3.2 → superset fab create-admin   (bỏ qua lỗi nếu admin đã tồn tại)
-    #   3.3 → superset init
-    #         run-server.sh               (khởi động web server)
-    command: >
-      bash -c "
-        pip install clickhouse-connect --quiet &&
-        superset db upgrade &&
-        superset fab create-admin
-          --username $$ADMIN_USERNAME
-          --firstname $$ADMIN_FIRSTNAME
-          --lastname $$ADMIN_LASTNAME
-          --email $$ADMIN_EMAIL
-          --password $$ADMIN_PASSWORD
-          2>/dev/null || true &&
-        superset init &&
-        /usr/bin/run-server.sh
-      "
+    # Không dùng command tự động – thực hiện thủ công theo SETUP.md:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8088/health"]
       interval: 30s
