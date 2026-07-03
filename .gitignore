@@ -1,3 +1,4 @@
 *.parquet
-encrypted_customer_data.parquet
-analytics_database/.env
+analytics_database/.env 
+ingestion/sample_data_50_rows.csv
+ingestion/.env
