@@ -1,1 +1,3 @@
-minio_credentials.py
+.env
+encrypted_customer_data_1M.parquet
+sample_data_50_rows.csv
