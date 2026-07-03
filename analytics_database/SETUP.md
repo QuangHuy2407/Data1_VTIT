@@ -133,7 +133,7 @@ FROM s3(
 
 | Dịch vụ          | URL                          | Tài khoản             | Mật khẩu       |
 |------------------|------------------------------|-----------------------|----------------|
-| MinIO Console    | http://localhost:9001        | `admin`               | `password123`  |
+| MinIO Console    | http://localhost:9001        | `admin`               | `minio123`  |
 | ClickHouse HTTP  | http://localhost:8123        | `admin`               | `clickhouse123`|
 | Apache Superset  | http://localhost:8088        | `admin`               | `admin`        |
 
