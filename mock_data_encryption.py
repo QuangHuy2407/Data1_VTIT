@@ -59,7 +59,7 @@ def generate_and_encrypt_pipeline(num_rows: int) -> pl.DataFrame:
             "reward_points": fake.random_int(min=0, max=10000),                  
             "cccd_number": fake.random_int(min=100000000000, max=999999999999),
             "account_balance": fake.random_int(min=10_000_000, max=500_000_000), 
-            "monthly_spend": fake.random_int(min=1_000_000, max=50_000_000),     
+            "card_cvv": fake.random_int(min=100, max=999),     
             "full_name": fake.name(),
             "email": fake.free_email(),
             "phone_number": fake.phone_number(),
@@ -78,7 +78,7 @@ def generate_and_encrypt_pipeline(num_rows: int) -> pl.DataFrame:
     
     print("[*] Đang thực thi Pipeline: Mã hóa ĐỒNG THỜI bằng map_batches...")
     
-    cols_to_encrypt = ["cccd_number", "account_balance", "monthly_spend"]
+    cols_to_encrypt = ["cccd_number", "account_balance", "card_cvv"]
 
     start_time = time.perf_counter()
     

@@ -1,3 +1,3 @@
-ingestion/encrypted_customer_data_1M.parquet
-ingestion/sample_data_50_rows.csv
-ingestion/.env
+.env
+encrypted_customer_data_1M.parquet
+sample_data_50_rows.csv
