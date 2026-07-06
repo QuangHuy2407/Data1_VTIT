@@ -4,3 +4,7 @@ ingestion/sample_data_50_rows.csv
 ingestion/.env
 *.zip
 
+analytics_database/reset_superset.sh
+analytics_database/SETUP.md
+sample_data_50_rows.csv
+analytics_database/SETUP.md

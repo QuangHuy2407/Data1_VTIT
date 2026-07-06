@@ -22,7 +22,7 @@ if _missing:
 BUCKET_NAME       = "data-pipeline"
 # Duong dan tuyet doi toi file parquet (relative to script directory's parent)
 LOCAL_FILE_PATH   = str(Path(__file__).parent.parent / "ingestion" / "encrypted_customer_data_1M.parquet")
-MINIO_OBJECT_NAME = "datasets/data.parquet"
+MINIO_OBJECT_NAME = "datasets/NewData/data.parquet"
 
 # 2. Khởi tạo client kết nối với S3 API của MinIO
 s3_client = boto3.client(

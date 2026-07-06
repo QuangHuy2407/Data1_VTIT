@@ -35,6 +35,10 @@ minio-app         Up ... (healthy)
 > ⏳ Chờ khoảng **30–60 giây** để ClickHouse khởi động xong trước khi làm bước tiếp theo.
 
 ---
+## Có thể thay bước 2+3 bằng bước sau 
+Mở git bash và nhập:
+./reset_superset.sh
+---
 
 ## 🧹 Bước 2 – Làm sạch DB cũ (Nếu đã từng chạy trước đó)
 
@@ -143,7 +147,7 @@ FROM s3(
 
 ```bash
 # Xem log của một service
-docker logs clickhouse-app -f
+docker logs clickhouse-app -f   
 docker logs superset-app -f
 docker logs minio-app -f
 

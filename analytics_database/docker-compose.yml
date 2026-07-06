@@ -90,6 +90,7 @@ services:
       ADMIN_LASTNAME: ${ADMIN_LASTNAME}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      DECRYPT_KEY: ${AES_SECRET_KEY}
     volumes:
       - superset_home:/app/superset_home
     networks:
