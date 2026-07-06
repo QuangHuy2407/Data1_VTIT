@@ -48,5 +48,6 @@ def upload_to_minio(local_file, bucket, object_name):
     except Exception as e:
         print(f"[ERROR] {e}")
 
-# Chạy hàm upload
-upload_to_minio(LOCAL_FILE_PATH, BUCKET_NAME, MINIO_OBJECT_NAME)
+# Chạy hàm upload (chỉ khi chạy trực tiếp file này)
+if __name__ == "__main__":
+    upload_to_minio(LOCAL_FILE_PATH, BUCKET_NAME, MINIO_OBJECT_NAME)

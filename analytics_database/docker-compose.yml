@@ -61,6 +61,7 @@ services:
       CLICKHOUSE_USER: ${CLICKHOUSE_USER}
       CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
       CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: ${CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT}
+      DECRYPT_KEY: ${AES_SECRET_KEY}
     volumes:
       - clickhouse_data:/var/lib/clickhouse
     networks:
