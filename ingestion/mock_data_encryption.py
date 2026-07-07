@@ -53,8 +53,8 @@ class AES256Cipher:
 def generate_and_encrypt_pipeline(num_rows: int) -> pl.DataFrame:
     #print(f"[*] Đang khởi tạo bộ dữ liệu giả lập với {num_rows:,} dòng (Quá trình này tốn vài phút do thư viện Faker)...")
     fake = Faker('vi_VN')
-    Faker.seed(42)
-    random.seed(42)
+    #Faker.seed(42)
+    #random.seed(42)
 
     PRODUCTS = {
         "Điện tử": [("EL01", "Smartphone"), ("EL02", "Laptop"), ("EL03", "Tablet"), ("EL04", "Smartwatch"), ("EL05", "Tai nghe")],
@@ -151,7 +151,7 @@ def generate_and_encrypt_pipeline(num_rows: int) -> pl.DataFrame:
         pl.DataFrame(raw_data)
         .with_columns([
             pl.col(col_name).map_batches(
-                lambda s: pl.Series([cipher_tool.encrypt(x) for x in s]), return_dtype=pl.String
+                lambda s, _col=col_name: pl.Series([cipher_tool.encrypt(x) for x in s]), return_dtype=pl.String
             )
             for col_name in cols_to_encrypt
         ])

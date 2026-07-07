@@ -14,3 +14,6 @@ ingestion/.DS_Store
 *.pyc
 *.pyc
 ingestion/__init__.py
+analytics_database/__pycache__/upLoadFile.cpython-312.pyc
+analytics_database/__pycache__/upLoadFile.cpython-312.pyc
+ingestion/__pycache__/mock_data_encryption.cpython-312.pyc

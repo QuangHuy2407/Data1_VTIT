@@ -38,7 +38,7 @@ s3_client = boto3.client(
 def upload_to_minio(local_file, bucket, object_name):
     try:
         # Kiểm tra và tạo bucket nếu chưa tồn tại
-        s3_client.create_bucket(Bucket=bucket)
+        #s3_client.create_bucket(Bucket=bucket)
 
         # Upload file
         #print(f"[INFO] Uploading: {local_file}")
