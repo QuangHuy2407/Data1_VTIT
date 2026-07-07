@@ -1,0 +1,107 @@
+version: '3.8'
+
+# ==============================================================================
+# DATA PIPELINE CÓ MÃ HÓA DỮ LIỆU
+# Hệ sinh thái gồm: MinIO (Data Lake) → ClickHouse (OLAP DB) → Superset (BI)
+# Credentials được load từ file .env (không commit lên Git)
+# ==============================================================================
+
+networks:
+  data_pipeline_net:
+    driver: bridge
+
+volumes:
+  clickhouse_data:
+    driver: local
+  superset_home:
+    driver: local
+
+services:
+
+  # ============================================================
+  # 1. MinIO – Object Storage (Data Lake, lưu file Parquet)
+  # Console:  http://localhost:9001
+  # S3 API:   http://localhost:9000
+  # ============================================================
+  minio:
+    image: minio/minio:latest
+    container_name: minio-app
+    restart: unless-stopped
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # MinIO Web Console
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - D:\minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - data_pipeline_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============================================================
+  # 2. ClickHouse – OLAP Database (nhận dữ liệu từ MinIO qua s3())
+  # HTTP Interface: http://localhost:8123
+  # Native Client:  localhost:9002  (map sang 9000 nội bộ)
+  # ============================================================
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse-app
+    restart: unless-stopped
+    ports:
+      - "8123:8123"   # HTTP interface (dùng cho Superset & Python)
+      - "9002:9000"   # Native TCP interface (tránh xung đột với MinIO host port)
+    environment:
+      CLICKHOUSE_DB: ${CLICKHOUSE_DB}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: ${CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT}
+      DECRYPT_KEY: ${AES_SECRET_KEY}
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    networks:
+      - data_pipeline_net
+    healthcheck:
+      test: ["CMD", "clickhouse-client", "--query", "SELECT 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # ============================================================
+  # 3. Apache Superset – BI Dashboard (kết nối với ClickHouse)
+  # Web UI: http://localhost:8088
+  # Tài khoản: xem biến ADMIN_USERNAME / ADMIN_PASSWORD trong .env
+  # ============================================================
+  superset:
+    image: apache/superset:3.1.3
+    container_name: superset-app
+    restart: unless-stopped
+    ports:
+      - "8088:8088"   # Superset Web UI
+    environment:
+      SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_FIRSTNAME: ${ADMIN_FIRSTNAME}
+      ADMIN_LASTNAME: ${ADMIN_LASTNAME}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      DECRYPT_KEY: ${AES_SECRET_KEY}
+    volumes:
+      - superset_home:/app/superset_home
+    networks:
+      - data_pipeline_net
+    depends_on:
+      - clickhouse
+      - minio
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088/health"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 60s
