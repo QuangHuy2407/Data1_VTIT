@@ -167,7 +167,7 @@ def generate_and_encrypt_pipeline(num_rows: int) -> pl.DataFrame:
 
 # CHƯƠNG TRÌNH CHÍNH (MAIN EXECUTION)
 if __name__ == "__main__":
-    NUM_ROWS = 500000
+    NUM_ROWS = 20
      
     pl.Config.set_tbl_width_chars(300)       
     pl.Config.set_fmt_str_lengths(15)        

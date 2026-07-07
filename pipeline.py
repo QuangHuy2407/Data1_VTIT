@@ -211,15 +211,16 @@ def run_pipeline(num_rows: int = 100):
 # ── Entry point ───────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Prefect Data Pipeline tự động")
-    parser.add_argument("--rows", type=int, default=100000,
-                        help="Số dòng dữ liệu giả lập (mặc định: 100,000)")
+    parser.add_argument("--rows", type=int, default=500000,
+                        help="Số dòng dữ liệu giả lập (mặc định: 500,000)")
     args = parser.parse_args()
     run_pipeline(num_rows=args.rows)
+
 
 """
     run_pipeline.serve(
         name="interval-pipeline-deployment",
-        interval=timedelta(minutes=10),
+        interval=timedelta(minutes=7),
         parameters={"num_rows": args.rows},
     )
 """
