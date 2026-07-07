@@ -1,0 +1,5 @@
+*.parquet
+*.pyc
+/analytics_database
+ingestion/__init__.py
+ingestion/123.zip
