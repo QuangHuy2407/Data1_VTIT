@@ -99,7 +99,6 @@ services:
     depends_on:
       - clickhouse
       - minio
-    # Không dùng command tự động – thực hiện thủ công theo SETUP.md:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8088/health"]
       interval: 30s

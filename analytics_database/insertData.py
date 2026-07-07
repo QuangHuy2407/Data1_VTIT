@@ -9,7 +9,7 @@ from botocore.client import Config
 # 1. Load các biến môi trường từ file .env
 _env_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=_env_path)
-print(f"[INFO] Loading .env from: {_env_path}")
+#print(f"[INFO] Loading .env from: {_env_path}")
 
 # Lấy cấu hình kết nối MinIO
 MINIO_ENDPOINT   = os.getenv("MINIO_ENDPOINT")
@@ -76,12 +76,12 @@ SELECT * FROM s3(
 
 # 4. Thực thi nạp và di chuyển file
 try:
-    print(f"[INFO] Đang nạp dữ liệu từ vị trí cấu hình bí mật vào ClickHouse...")
+    #print(f"[INFO] Đang nạp dữ liệu từ vị trí cấu hình bí mật vào ClickHouse...")
     client.command(query)
-    print("[OK] Đã nạp dữ liệu vào ClickHouse thành công!")
+    #print("[OK] Đã nạp dữ liệu vào ClickHouse thành công!")
     
     # --- TIẾN HÀNH DI CHUYỂN FILE SANG USED DATA ---
-    print(f"[INFO] Đang di chuyển bảo tồn file theo cấu hình hệ thống...")
+    #print(f"[INFO] Đang di chuyển bảo tồn file theo cấu hình hệ thống...")
     
     # Bước 4.1: Sao chép (Copy)
     s3_client.copy_object(
@@ -96,7 +96,7 @@ try:
         Key=SOURCE_KEY
     )
     
-    print(f"[OK] Di chuyển hoàn tất! File đã được lưu trữ an toàn.")
+    #print(f"[OK] Di chuyển hoàn tất! File đã được lưu trữ an toàn.")
 
 except Exception as e:
     print(f"[ERROR] Quá trình xử lý thất bại: {e}")

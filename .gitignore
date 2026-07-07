@@ -11,3 +11,6 @@ sample_data_50_rows.csv
 encrypted_customer_data_1M.parquet
 ingestion/.DS_Store
 
+*.pyc
+*.pyc
+ingestion/__init__.py
